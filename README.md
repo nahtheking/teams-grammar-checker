@@ -1,68 +1,88 @@
 # Teams Grammar Checker
 
-A lightweight Windows tool that runs silently in the background and checks your grammar before sending messages in Microsoft Teams — powered by a local AI model via Ollama (no API costs).
+A lightweight Windows background utility that checks grammar in your Microsoft Teams messages using a **local AI model** via [Ollama](https://ollama.com/) — no API keys, no cloud costs.
 
-## Demo
+---
 
-Highlight any text in Teams → press **Alt+Shift+G** → a suggestion popup appears in the bottom-right corner.
+## How It Looks
+
+![Grammar Checker Popup](assets/popup-mockup.svg)
+
+> Highlight any text in your Teams message box, press **Alt + Shift + G**, and a popup appears with the corrected version. Hit **Apply** to replace it instantly, or **Dismiss** to ignore.
+
+---
+
+## Features
+
+- **Local AI processing** — runs entirely on your machine using Ollama (no internet required after setup)
+- **Non-intrusive** — runs silently in the background
+- **Simple workflow** — Highlight → Hotkey → Review → Apply
+- **Lightweight** — minimal resource usage when idle
+
+---
 
 ## Requirements
 
-- Windows 10/11
+- Windows 10 / 11
 - Python 3.10+
-- [Ollama](https://ollama.com/download) running locally
+- [Ollama](https://ollama.com/) installed and running locally
+
+---
 
 ## Installation
 
-### 1. Install Ollama and pull a model
+**1. Install Ollama and pull a model:**
 ```bash
 ollama pull llama3.2:3b
 ```
+> 💡 For better accuracy, try `qwen2.5:3b` instead.
 
-### 2. Install Python dependencies
+**2. Install Python dependencies:**
 ```bash
 pip install pynput pyperclip
 ```
 
-### 3. Run
+**3. Run the app:**
 ```bash
 python teams_grammar.py
 ```
 
+---
+
 ## Usage
 
-1. Type your message in Teams
+1. Open Microsoft Teams and type a message
 2. **Highlight** the text you want to check
-3. Press **Alt+Shift+G**
-4. A popup appears with the corrected text
-5. Click **✅ Apply** to replace the text, or **✖ Dismiss** to ignore
+3. Press **Alt + Shift + G**
+4. Review the suggestion in the popup
+5. Click **✓ Apply** to replace your text, or **✕ Dismiss** to cancel
+
+---
+
+## Auto-start on Windows Boot
+
+To launch the tool automatically when Windows starts:
+
+1. Create a `.bat` file with:
+   ```bat
+   @echo off
+   python "C:\path\to\teams_grammar.py"
+   ```
+2. Press `Win + R`, type `shell:startup`, and press Enter
+3. Move your `.bat` file into that folder
+
+---
 
 ## Configuration
 
-Open `teams_grammar.py` and edit the top section:
+Open `teams_grammar.py` to customize:
 
-```python
-OLLAMA_MODEL = "llama3.2:3b"   # or "qwen2.5:3b" for better accuracy
-IDLE_SECONDS = 2.5             # seconds to wait before checking
-```
+| Setting | Description |
+|---|---|
+| `model` | Ollama model to use (e.g. `llama3.2:3b`, `qwen2.5:3b`) |
+| Idle timing | Adjust how quickly the script detects idle state |
 
-## Run on Windows Startup
-
-1. Create `start_grammar.bat`:
-```bat
-@echo off
-pythonw C:\path\to\teams_grammar.py
-```
-2. Press `Win+R` → type `shell:startup`
-3. Copy the `.bat` file into that folder
-
-## Tech Stack
-
-- **Python** — core language
-- **pynput** — global hotkey listener
-- **pyperclip** — clipboard access
-- **Ollama** — local LLM inference
-- **tkinter** — suggestion popup UI
+---
 
 ## License
 
