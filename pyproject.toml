@@ -1,0 +1,15 @@
+[project]
+name = "teams-grammar-checker"
+version = "1.0.0"
+description = "Real-time grammar correction for Microsoft Teams via Ollama"
+requires-python = ">=3.10"
+dependencies = [
+    "pynput>=1.7.7",
+    "pyperclip>=1.8.2",
+    "keyboard>=0.13.5",
+    "pystray>=0.19.5",
+    "Pillow>=10.0.0",
+]
+
+[project.scripts]
+teams-grammar = "main:main"
